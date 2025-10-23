@@ -11,24 +11,30 @@ protected:
     struct Node {
         T value;
         Node* next;
-        Node(T v, Node* n = nullptr) : value(v), next(n) {}
+        Node(T v = T(), Node* n = nullptr)
+        : value(v), next(n) { }
     };
-    Node* head;
-    Node* tail;
 
-public:
-    LinkedQueue();
-    virtual ~LinkedQueue();
-    virtual void enqueue(const T&) override;
-    virtual void dequeue() override;
-    virtual T front() const override;
-    virtual T back() const override;
-    virtual bool isEmpty() const override;
-    virtual int getLength() const override { return this->length; }
+    Node *head, *last;
 
 private:
     void copy(const LinkedQueue<T>&);
+
+public:
+    LinkedQueue();
+    LinkedQueue(const LinkedQueue<T>&);
+    LinkedQueue<T>& operator=(const LinkedQueue<T>&);
+    virtual ~LinkedQueue();
+
+    virtual T back() const override;
+    virtual void clear() override;
+    virtual void dequeue() override;
+    virtual void enqueue(const T&) override;
+    virtual T front() const override;
+    virtual int getLength() const override;
+    virtual bool isEmpty() const override;
 };
 
 #include "LinkedQueue.tpp"
 #endif
+
